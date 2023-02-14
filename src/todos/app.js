@@ -39,11 +39,19 @@ export const App = elementId => {
     event.target.value = ''
   })
 
-  // TODO: arreglar el evento (no tacha las tareas)
   todoListUL.addEventListener('click', event => {
     const element = event.target.closest('[data-id]')
-    console.log(event.target)
+    console.log(element)
     todoStore.toggleTodo(element.getAttribute('data-id'))
+    displaytodos()
+  })
+
+  todoListUL.addEventListener('click', event => {
+    const isDestroyElement = event.target.className === 'destroy'
+    const element = event.target.closest('[data-id]')
+    if (!element || !isDestroyElement) return
+
+    todoStore.deleteTodo(element.getAttribute('data-id'))
     displaytodos()
   })
 }
